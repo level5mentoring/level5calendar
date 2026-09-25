@@ -28,6 +28,12 @@
 #l5-cal .howto-box.heads-up{background:#fffbeb;border-color:#f1d9a0}
 #l5-cal .howto-box.heads-up strong{color:#92400e}
 
+#l5-cal .tz-row{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:10px}
+#l5-cal .tz-label{font-size:12px;font-weight:700;color:var(--soft)}
+#l5-cal .tz-btn{font:inherit;font-size:12.5px;font-weight:600;color:var(--soft);background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:5px 13px;cursor:pointer}
+#l5-cal .tz-btn.active{background:var(--hdr1);border-color:var(--hdr1);color:#fff}
+#l5-cal .tz-note{font-size:12px;color:var(--soft);margin-top:8px}
+
 #l5-cal .key{max-width:1100px;margin:16px auto 0;padding:0 24px}
 #l5-cal .key-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 20px}
 #l5-cal .key-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);margin-bottom:10px}
@@ -83,7 +89,13 @@
 
   <div class="howto">
     <div class="howto-box">
-      <strong>Joining a session:</strong> your join link is emailed to you before each session. Times below are shown in Pacific Time.
+      <strong>Joining a session:</strong> your join link is emailed to you before each session.
+      <div class="tz-row">
+        <span class="tz-label">Show times in:</span>
+        <button type="button" class="tz-btn active" data-tz="pt">Pacific Time</button>
+        <button type="button" class="tz-btn" data-tz="local">My Time Zone</button>
+      </div>
+      <div class="tz-note">Your time zone comes from your device. Double-check the time before joining, especially if you've traveled recently.</div>
     </div>
     <div class="howto-box heads-up">
       <strong>Integration week is October 11–17.</strong> Most weekly programs pause that week.
@@ -199,8 +211,12 @@ const DATA = { "events": [
 
 function esc(s){ return (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+let tzMode = 'pt';
 function formatTime(iso){
   if(!iso) return '';
+  if(tzMode === 'local'){
+    return new Date(iso).toLocaleTimeString([], {hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+  }
   const t = iso.split('T')[1].slice(0,5);
   let [h,m] = t.split(':').map(Number);
   const ampm = h >= 12 ? 'PM' : 'AM';
@@ -233,7 +249,12 @@ function renderMonth(year, monthIndex, label){
   for(let i=0;i<first;i++) html += '<div class="cell pad"></div>';
   for(let d=1; d<=days; d++){
     const ds = year+'-'+String(monthIndex+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    const evs = (byDate[ds] || []).filter(e => e.audience === 'client');
+    const evs = (byDate[ds] || []).filter(e => e.audience === 'client').sort((a,b) => {
+      if(!a.start && !b.start) return 0;
+      if(!a.start) return 1;
+      if(!b.start) return -1;
+      return a.start.localeCompare(b.start);
+    });
     const cellCls = 'cell' + (pausedDates.has(ds) ? ' paused' : '');
     html += '<div class="'+cellCls+'"><div class="dnum">'+d+'</div>';
     evs.forEach(e => {
@@ -254,7 +275,17 @@ function renderMonth(year, monthIndex, label){
   html += '</div></div>';
   return html;
 }
-document.getElementById('monthsWrap').innerHTML = renderMonth(2026, 8, 'September 2026') + renderMonth(2026, 9, 'October 2026');
+function renderAll(){
+  document.getElementById('monthsWrap').innerHTML = renderMonth(2026, 8, 'September 2026') + renderMonth(2026, 9, 'October 2026');
+}
+renderAll();
+document.querySelectorAll('.tz-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    tzMode = btn.dataset.tz;
+    document.querySelectorAll('.tz-btn').forEach(b => b.classList.toggle('active', b === btn));
+    renderAll();
+  });
+});
 </script>
 </body>
 </html>
