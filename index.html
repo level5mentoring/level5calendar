@@ -215,7 +215,13 @@ let tzMode = 'pt';
 function formatTime(iso){
   if(!iso) return '';
   if(tzMode === 'local'){
-    return new Date(iso).toLocaleTimeString([], {hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+    const d = new Date(iso);
+    const localDateStr = d.toLocaleDateString('en-CA');
+    const ptDateStr = iso.slice(0,10);
+    let dayNote = '';
+    if(localDateStr > ptDateStr) dayNote = ' (next day)';
+    else if(localDateStr < ptDateStr) dayNote = ' (previous day)';
+    return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit', timeZoneName:'short'}) + dayNote;
   }
   const t = iso.split('T')[1].slice(0,5);
   let [h,m] = t.split(':').map(Number);
