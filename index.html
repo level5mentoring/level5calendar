@@ -181,7 +181,7 @@ const DATA = { "events": [
     { "date": "2026-09-25", "program": "bbs", "name": "Laser Spellbreak Session with Brian", "sub": "(BBS)", "start": "2026-09-25T11:00:00-07:00", "audience": "client" },
     { "date": "2026-09-25", "program": "parenting", "name": "Level 5 Parenting", "sub": "Canceled", "start": null, "status": "off", "audience": "client" },
     { "date": "2026-09-25", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-26", "program": "qq", "name": "Full Audience Session", "sub": "(QQ Launch) — topic TBD", "start": "2026-09-26T13:00:00-07:00", "audience": "internal" },
+    { "date": "2026-09-26", "program": "qq", "name": "Full Audience Session", "sub": "What is missing from the manifestation market, and how you could be one of the people who brings it (QQ Launch)", "start": "2026-09-26T13:00:00-07:00", "audience": "internal" },
     { "date": "2026-09-27", "program": "qq", "name": "Making Money with the Manifestation Market", "sub": "For mentors and facilitators (QQ Launch)", "start": "2026-09-27T10:00:00-07:00", "audience": "internal" },
     { "date": "2026-09-27", "program": "qq", "name": "Full Audience Session", "sub": "(QQ Launch) — topic TBD", "start": "2026-09-27T13:00:00-07:00", "audience": "internal" },
     { "date": "2026-09-28", "program": "perfectclient", "name": "Perfect Client System", "sub": null, "start": "2026-09-28T12:00:00-07:00", "audience": "client" },
@@ -207,7 +207,7 @@ const DATA = { "events": [
     { "date": "2026-10-14", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
     { "date": "2026-10-14", "program": "reality", "name": "Reality Lab", "sub": null, "start": "2026-10-14T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-16", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-10-17", "program": "facilitator", "name": "Intro to Level 5", "sub": "With Brian", "start": null, "duration_note": "Full day", "audience": "client" },
+    { "date": "2026-10-17", "program": "facilitator", "name": "Intro to Level 5", "sub": "With Brian", "start": "2026-10-17T11:00:00-07:00", "duration_note": "Several hours", "audience": "client" },
     { "date": "2026-10-19", "program": "perfectclient", "name": "Perfect Client System", "sub": null, "start": "2026-10-19T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-20", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-10-20T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-20", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-10-20T12:00:00-07:00", "audience": "client" },
@@ -217,7 +217,7 @@ const DATA = { "events": [
     { "date": "2026-10-22", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-10-22T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-23", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 5 — The Questions", "start": "2026-10-23T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-23", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-23T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-10-23", "program": "facilitator", "name": "Facilitator Training Day", "sub": "(Intro to Level 5)", "start": "2026-10-23T10:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-23", "program": "facilitator", "name": "Facilitator Training Day", "sub": "With Abigail (Intro to Level 5)", "start": "2026-10-23T10:00:00-07:00", "end": "2026-10-23T14:00:00-07:00", "audience": "client" },
     { "date": "2026-10-25", "program": "special", "name": "Coco Wasi", "sub": "Day 4 makeup session", "start": "2026-10-25T11:00:00-07:00", "audience": "client" },
     { "date": "2026-10-27", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-10-27T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-27", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-10-27T12:00:00-07:00", "audience": "client" },
@@ -244,6 +244,19 @@ function formatTime(iso){
   const ampm = h >= 12 ? 'PM' : 'AM';
   let h12 = h % 12; if(h12 === 0) h12 = 12;
   return h12 + ':' + String(m).padStart(2,'0') + ' ' + ampm + ' PT';
+}
+function formatEventTime(e){
+  if(!e.start) return '';
+  if(!e.end) return formatTime(e.start);
+  if(tzMode === 'local') return formatTime(e.start) + ' – ' + formatTime(e.end);
+  function fmt12(iso){
+    const t = iso.split('T')[1].slice(0,5);
+    let [h,m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    let h12 = h % 12; if(h12 === 0) h12 = 12;
+    return h12 + ':' + String(m).padStart(2,'0') + ' ' + ampm;
+  }
+  return fmt12(e.start) + ' – ' + fmt12(e.end) + ' PT';
 }
 const byDate = {};
 DATA.events.forEach(e => { (byDate[e.date] = byDate[e.date] || []).push(e); });
@@ -286,7 +299,7 @@ function renderMonth(year, monthIndex, label){
       if(e.status==='tentative') nameLine += '<span class="tag-tentative">TENTATIVE</span>';
       html += '<div class="'+cls+'"><span class="ev-name">'+nameLine+'</span>';
       if(e.sub) html += '<span class="ev-sub">'+esc(e.sub)+'</span>';
-      if(e.start) html += '<span class="ev-time">'+formatTime(e.start)+'</span>';
+      if(e.start) html += '<span class="ev-time">'+formatEventTime(e)+'</span>';
       if(e.duration_note) html += '<span class="ev-sub">'+esc(e.duration_note)+'</span>';
       html += '</div>';
     });
