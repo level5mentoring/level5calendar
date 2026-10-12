@@ -11,7 +11,7 @@
   --c-bbs:#db2777; --c-colorado:#d97706; --c-qq:#0284c7; --c-parenting:#7c3aed;
   --c-facilitator:#2563eb; --c-lighthouse:#16a34a; --c-beacon:#ca8a04; --c-reality:#4f46e5;
   --c-perfectclient:#64748b; --c-ignite:#7f1d1d;
-  --c-oneoff-1:#be123c; --c-oneoff-2:#a21caf; --c-oneoff-3:#4d7c0f;
+  --c-oneoff-1:#be123c; --c-oneoff-2:#a21caf; --c-oneoff-3:#4d7c0f; --c-coffee:#0f766e;
   background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-size:15px; line-height:1.55; padding-bottom:50px; text-align:left;
 }
@@ -44,6 +44,7 @@
 #l5-cal .l5-main{max-width:1100px;margin:0 auto;padding:6px 24px 0;overflow-x:hidden}
 #l5-cal .month{margin:34px 0 0}
 #l5-cal .month-name{font-size:21px;font-weight:700;margin-bottom:12px}
+#l5-cal .month-note{font-size:12.5px;font-weight:600;color:#92400e;background:#fffbeb;border:1px solid #f1d9a0;border-radius:8px;padding:8px 12px;margin:0 0 10px}
 #l5-cal .dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin-bottom:4px}
 #l5-cal .dow span{text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
 #l5-cal .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line);border-radius:8px;background:var(--surface)}
@@ -73,6 +74,7 @@
 #l5-cal .e-oneoff-1{--ec:var(--c-oneoff-1);--eb:#fff1f2}
 #l5-cal .e-oneoff-2{--ec:var(--c-oneoff-2);--eb:#fdf4ff}
 #l5-cal .e-oneoff-3{--ec:var(--c-oneoff-3);--eb:#f7fee7}
+#l5-cal .e-coffee{--ec:var(--c-coffee);--eb:#f0fdfa}
 
 #l5-cal .l5-foot{max-width:1100px;margin:40px auto 0;padding:18px 24px;border-top:1px solid var(--line);font-size:12.5px;color:var(--soft);line-height:1.7}
 
@@ -127,6 +129,7 @@
         <span class="key-item"><span class="dot" style="background:var(--c-lighthouse)"></span>Lighthouse</span>
         <span class="key-item"><span class="dot" style="background:var(--c-beacon)"></span>Beacon Mentor Program</span>
         <span class="key-item"><span class="dot" style="background:var(--c-reality)"></span>Reality Lab</span>
+        <span class="key-item"><span class="dot" style="background:var(--c-coffee)"></span>Coffee Chat</span>
         <span class="key-item"><span class="dot" style="background:var(--c-perfectclient)"></span>Perfect Client System</span>
         <span class="key-item"><span class="dot" style="background:var(--c-ignite)"></span>Ignite</span>
         <span class="key-item"><span class="dot" style="background:var(--c-qq)"></span>Quantum Questions</span>
@@ -139,56 +142,12 @@
   <div class="l5-main" id="monthsWrap"></div>
 
   <div class="l5-foot">
-    Last updated September 24, 2026.
+    Last updated October 12, 2026.
   </div>
 </div>
 
 <script>
 const DATA = { "events": [
-    { "date": "2026-09-01", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-09-01T09:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-01", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-09-01T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-02", "program": "bbs", "name": "Beyond Business Success", "sub": null, "start": "2026-09-02T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-02", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-02T02:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-03", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-09-03T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-04", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 2 — Break the Spell", "start": "2026-09-04T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-04", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-04T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-08", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-09-08T09:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-08", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-09-08T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-09", "program": "bbs", "name": "Beyond Business Success", "sub": "No live session", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-09", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-09T02:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-10", "program": "colorado", "name": "Reactivate Colorado", "sub": "Day 1 of 4", "start": null, "audience": "client" },
-    { "date": "2026-09-11", "program": "colorado", "name": "Reactivate Colorado", "sub": "Day 2 of 4", "start": null, "audience": "client" },
-    { "date": "2026-09-11", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-11T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-12", "program": "colorado", "name": "Reactivate Colorado", "sub": "Day 3 of 4", "start": null, "audience": "client" },
-    { "date": "2026-09-13", "program": "colorado", "name": "Reactivate Colorado", "sub": "Day 4 of 4", "start": null, "audience": "client" },
-    { "date": "2026-09-14", "program": "perfectclient", "name": "Perfect Client System", "sub": null, "start": "2026-09-14T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-15", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-09-15T09:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-15", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-09-15T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-16", "program": "bbs", "name": "Beyond Business Success", "sub": null, "start": "2026-09-16T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-16", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-16T02:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-18", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 3 — The Mirror", "start": "2026-09-18T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-18", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-18T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-20", "program": "qq", "name": "QQ Masterclass — Beacon Mentors & Facilitators", "sub": "Mentors & facilitators only (QQ Launch)", "start": "2026-09-20T12:00:00-07:00", "audience": "internal" },
-    { "date": "2026-09-20", "end": "2026-09-26", "band": true, "program": "special", "name": "Integration week", "sub": "Most weekly programs pause this week", "start": null, "audience": "client" },
-    { "date": "2026-09-21", "program": "perfectclient", "name": "Perfect Client System", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-22", "program": "facilitator", "name": "Facilitator Track", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-22", "program": "lighthouse", "name": "Lighthouse", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-23", "program": "reality", "name": "Reality Lab", "sub": null, "start": "2026-09-23T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-23", "program": "bbs", "name": "Beyond Business Success", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-23", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-24", "program": "facilitator", "name": "Beacon Mentor & Facilitator Q&A Laser Session with Brian", "sub": "(Facilitator)", "start": "2026-09-24T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-24", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-09-24T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-25", "program": "bbs", "name": "Laser Spellbreak Session with Brian", "sub": "(BBS)", "start": "2026-09-25T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-25", "program": "parenting", "name": "Level 5 Parenting", "sub": "Canceled", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-25", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-09-26", "program": "qq", "name": "Full Audience Session", "sub": "What is missing from the manifestation market, and how you could be one of the people who brings it (QQ Launch)", "start": "2026-09-26T13:00:00-07:00", "audience": "internal" },
-    { "date": "2026-09-27", "program": "qq", "name": "Making Money with the Manifestation Market", "sub": "For mentors and facilitators (QQ Launch)", "start": "2026-09-27T10:00:00-07:00", "audience": "internal" },
-    { "date": "2026-09-27", "program": "qq", "name": "Full Audience Session", "sub": "(QQ Launch) — topic TBD", "start": "2026-09-27T13:00:00-07:00", "audience": "internal" },
-    { "date": "2026-09-28", "program": "perfectclient", "name": "Perfect Client System", "sub": null, "start": "2026-09-28T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-29", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-09-29T09:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-29", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-09-29T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-30", "program": "bbs", "name": "Beyond Business Success", "sub": null, "start": "2026-09-30T12:00:00-07:00", "audience": "client" },
-    { "date": "2026-09-30", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-09-30T02:00:00-07:00", "audience": "client" },
     { "date": "2026-10-01", "program": "qq", "name": "Quantum Questions", "sub": "Program kickoff — Day 1", "start": "2026-10-01T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-02", "program": "qq", "name": "Quantum Questions", "sub": "Program kickoff — Day 2", "start": "2026-10-02T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-02", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-02T11:00:00-07:00", "audience": "client" },
@@ -199,6 +158,7 @@ const DATA = { "events": [
     { "date": "2026-10-07", "program": "bbs", "name": "Beyond Business Success", "sub": "Infinite Intelligence Messaging", "start": "2026-10-07T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-07", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-07T02:00:00-07:00", "audience": "client" },
     { "date": "2026-10-08", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-10-08T12:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-08", "program": "coffee", "name": "Coffee Chat", "sub": null, "start": "2026-10-08T10:00:00-07:00", "audience": "client" },
     { "date": "2026-10-09", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 4 — Breathing in the Fire", "start": "2026-10-09T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-09", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-09T11:00:00-07:00", "audience": "client" },
     { "date": "2026-10-11", "end": "2026-10-17", "band": true, "program": "special", "name": "Integration week", "sub": "Most weekly programs pause October 11–17", "start": null, "audience": "client" },
@@ -206,8 +166,9 @@ const DATA = { "events": [
     { "date": "2026-10-13", "program": "lighthouse", "name": "Lighthouse", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
     { "date": "2026-10-14", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
     { "date": "2026-10-14", "program": "reality", "name": "Reality Lab", "sub": null, "start": "2026-10-14T12:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-15", "program": "coffee", "name": "Coffee Chat", "sub": null, "start": "2026-10-15T10:00:00-07:00", "audience": "client" },
     { "date": "2026-10-16", "program": "ignite", "name": "Ignite", "sub": "No session — integration week", "start": null, "status": "off", "audience": "client" },
-    { "date": "2026-10-17", "program": "facilitator", "name": "Intro to Level 5", "sub": "With Brian", "start": "2026-10-17T11:00:00-07:00", "duration_note": "Several hours", "audience": "client" },
+    { "date": "2026-10-17", "program": "facilitator", "name": "Access the 5th Paradigm", "sub": "With Brian", "start": "2026-10-17T11:00:00-07:00", "duration_note": "Several hours", "audience": "client" },
     { "date": "2026-10-19", "program": "perfectclient", "name": "Perfect Client System", "sub": null, "start": "2026-10-19T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-20", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-10-20T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-20", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-10-20T12:00:00-07:00", "audience": "client" },
@@ -215,14 +176,61 @@ const DATA = { "events": [
     { "date": "2026-10-21", "program": "bbs", "name": "Beyond Business Success", "sub": "Group Spellbreaking with Brian", "start": "2026-10-21T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-21", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-21T02:00:00-07:00", "audience": "client" },
     { "date": "2026-10-22", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-10-22T12:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-22", "program": "coffee", "name": "Coffee Chat", "sub": null, "start": "2026-10-22T10:00:00-07:00", "audience": "client" },
     { "date": "2026-10-23", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 5 — The Questions", "start": "2026-10-23T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-23", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-23T11:00:00-07:00", "audience": "client" },
-    { "date": "2026-10-23", "program": "facilitator", "name": "Facilitator Training Day", "sub": "With Abigail (Intro to Level 5)", "start": "2026-10-23T10:00:00-07:00", "end": "2026-10-23T14:00:00-07:00", "audience": "client" },
-    { "date": "2026-10-25", "program": "special", "name": "Coco Wasi", "sub": "Day 4 makeup session", "start": "2026-10-25T11:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-23", "end": "2026-10-23T14:00:00-07:00", "program": "facilitator", "name": "Facilitator Training Day", "sub": "With Abigail (Access the 5th Paradigm)", "start": "2026-10-23T10:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-25", "program": "special", "name": "Coco Wasi", "sub": "Day 4 makeup session", "start": "2026-10-25T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-27", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-10-27T09:00:00-07:00", "audience": "client" },
     { "date": "2026-10-27", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-10-27T12:00:00-07:00", "audience": "client" },
     { "date": "2026-10-28", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-28T02:00:00-07:00", "audience": "client" },
-    { "date": "2026-10-30", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-30T11:00:00-07:00", "audience": "client" }
+    { "date": "2026-10-29", "program": "coffee", "name": "Coffee Chat", "sub": null, "start": "2026-10-29T10:00:00-07:00", "audience": "client" },
+    { "date": "2026-10-30", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-10-30T11:00:00-07:00", "audience": "client" },
+    { "date": "2026-11-03", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-11-03T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-03", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-11-03T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-04", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-04T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-06", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-06T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-06", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 6", "start": "2026-11-06T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-10", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-11-10T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-10", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-11-10T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-11", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-11T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-12", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-11-12T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-13", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-13T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-13", "program": "parenting", "name": "Level 5 Parenting", "sub": "Week 8 — Final", "start": "2026-11-13T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-14", "end": "2026-11-14T14:15:00-08:00", "program": "colorado", "name": "Your New Beginning Weekend", "sub": "Day 1 of 2", "start": "2026-11-14T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-15", "end": "2026-11-15T15:00:00-08:00", "program": "colorado", "name": "Your New Beginning Weekend", "sub": "Day 2 of 2", "start": "2026-11-15T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-17", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-11-17T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-17", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-11-17T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-18", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-18T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-20", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-20T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-24", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-11-24T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-24", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-11-24T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-25", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-25T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-11-26", "program": "beacon", "name": "Beacon Mentor Program", "sub": "No session (Thanksgiving)", "start": null, "status": "off", "audience": "client" },
+    { "date": "2026-11-27", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-11-27T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-01", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-12-01T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-01", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-12-01T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-02", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-02T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-04", "end": "2026-12-04T14:00:00-08:00", "program": "facilitator", "name": "YNB Facilitator Training Day", "sub": null, "start": "2026-12-04T10:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-04", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-04T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-08", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-12-08T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-08", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-12-08T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-09", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-09T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-10", "program": "beacon", "name": "Beacon Mentor Program", "sub": null, "start": "2026-12-10T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-11", "end": "2026-12-11T14:00:00-08:00", "program": "facilitator", "name": "Cosmic Projector Facilitator Day", "sub": null, "start": "2026-12-11T10:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-11", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-11T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-15", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-12-15T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-15", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-12-15T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-16", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-16T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-18", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-18T11:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-22", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-12-22T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-22", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-12-22T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-23", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-23T02:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-24", "program": "beacon", "name": "Beacon Mentor Program", "sub": "No session (Christmas Eve)", "start": null, "status": "off", "audience": "client" },
+    { "date": "2026-12-25", "program": "ignite", "name": "Ignite", "sub": "No session (Christmas)", "start": null, "status": "off", "audience": "client" },
+    { "date": "2026-12-29", "program": "facilitator", "name": "Facilitator Track", "sub": null, "start": "2026-12-29T09:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-29", "program": "lighthouse", "name": "Lighthouse", "sub": null, "start": "2026-12-29T12:00:00-08:00", "audience": "client" },
+    { "date": "2026-12-30", "program": "ignite", "name": "Ignite", "sub": null, "start": "2026-12-30T02:00:00-08:00", "audience": "client" }
 ] };
 
 function esc(s){ return (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -276,11 +284,11 @@ DATA.events.filter(e => e.program === 'special').sort((a,b) => a.date.localeComp
   if (!(e.name in oneoffColor)) { oneoffColor[e.name] = (oneoffCount % ONEOFF_SLOTS) + 1; oneoffCount++; }
 });
 
-function renderMonth(year, monthIndex, label){
+function renderMonth(year, monthIndex, label, note){
   const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const first = new Date(year, monthIndex, 1).getDay();
   const days = new Date(year, monthIndex+1, 0).getDate();
-  let html = '<div class="month"><div class="month-name">'+label+'</div><div class="dow">'+dow.map(d=>'<span>'+d+'</span>').join('')+'</div><div class="grid">';
+  let html = '<div class="month"><div class="month-name">'+label+'</div>'+(note?'<div class="month-note">'+note+'</div>':'')+'<div class="dow">'+dow.map(d=>'<span>'+d+'</span>').join('')+'</div><div class="grid">';
   for(let i=0;i<first;i++) html += '<div class="cell pad"></div>';
   for(let d=1; d<=days; d++){
     const ds = year+'-'+String(monthIndex+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
@@ -311,7 +319,7 @@ function renderMonth(year, monthIndex, label){
   return html;
 }
 function renderAll(){
-  document.getElementById('monthsWrap').innerHTML = renderMonth(2026, 8, 'September 2026') + renderMonth(2026, 9, 'October 2026');
+  document.getElementById('monthsWrap').innerHTML = renderMonth(2026, 9, 'October 2026') + renderMonth(2026, 10, 'November 2026', 'Integration Week &mdash; TBA') + renderMonth(2026, 11, 'December 2026');
 }
 renderAll();
 document.querySelectorAll('.tz-btn').forEach(btn => {
