@@ -52,6 +52,8 @@
 #l5-cal .cell.pad{background:#fafbfd}
 #l5-cal .cell.paused{background:#fffbf2;box-shadow:inset 0 3px 0 0 #d97706}
 #l5-cal .dnum{font-size:12px;color:var(--soft);font-weight:700}
+#l5-cal .cell.today{box-shadow:inset 0 0 0 2px var(--hdr1)}
+#l5-cal .cell.today .dnum{background:var(--hdr1);color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px}
 
 #l5-cal .ev{border-left:3.5px solid var(--ec,var(--soft));background:var(--eb,#f3f5f9);border-radius:0 5px 5px 0;padding:4px 7px}
 #l5-cal .ev-name{display:block;font-size:11.5px;font-weight:700;line-height:1.28;color:var(--ink);overflow-wrap:anywhere}
@@ -294,6 +296,8 @@ DATA.events.filter(e => e.program === 'special').sort((a,b) => a.date.localeComp
   if (!(e.name in oneoffColor)) { oneoffColor[e.name] = (oneoffCount % ONEOFF_SLOTS) + 1; oneoffCount++; }
 });
 
+const _now=new Date();
+const TODAY_STR=_now.getFullYear()+'-'+String(_now.getMonth()+1).padStart(2,'0')+'-'+String(_now.getDate()).padStart(2,'0');
 function renderMonth(year, monthIndex, label, note){
   const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const first = new Date(year, monthIndex, 1).getDay();
@@ -308,7 +312,7 @@ function renderMonth(year, monthIndex, label, note){
       if(!b.start) return -1;
       return a.start.localeCompare(b.start);
     });
-    const cellCls = 'cell' + (pausedDates.has(ds) ? ' paused' : '');
+    const cellCls = 'cell' + (pausedDates.has(ds) ? ' paused' : '') + (ds === TODAY_STR ? ' today' : '');
     html += '<div class="'+cellCls+'"><div class="dnum">'+d+'</div>';
     evs.forEach(e => {
       const programCls = e.program === 'special' ? ('oneoff-'+oneoffColor[e.name]) : e.program;
